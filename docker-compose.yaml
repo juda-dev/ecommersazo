@@ -36,9 +36,6 @@ services:
   zipkin:
     image: openzipkin/zipkin:3.4
     container_name: zipkin
-    depends_on:
-      mysql:
-        condition: service_healthy
     environment:
       STORAGE_TYPE: mysql
       MYSQL_HOST: mysql
