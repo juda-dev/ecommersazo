@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    function:
+      definition: handleReplies
+    stream:
+      bindings:
+        commands-out-0:
+          destinantion: products.commands
+          contentType: application/json
+        handleReplies-in-0:
+          destination: products.replies
+          contentType: application/json
+          group: ${spring.application.name}
+      kafka:
+        binder:
+          brokers: localhost:9092
+        bindings:
+          handleReplies-in-0:
+            consumer:
+              startOffset: latest
