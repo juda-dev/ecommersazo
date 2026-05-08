@@ -8,7 +8,7 @@ spring:
     stream:
       bindings:
         commands-out-0:
-          destinantion: products.commands
+          destination: products.commands
           contentType: application/json
         handleReplies-in-0:
           destination: products.replies
