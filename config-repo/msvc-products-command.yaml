@@ -1,0 +1,29 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/db_products
+    username: products_user
+    password: products_pass
+  jpa:
+    hibernate:
+      dll-auto: update
+    open-in-view: false
+  cloud:
+    function:
+      definition: handleCommands
+    stream:
+      bindings:
+        handleCommands-in-0:
+          destination: products.commands
+          contentType: application/json
+          group: products-command
+          consumer:
+            startOffset: latest
+        handleCommand-out-0:
+          destination: products.replies
+          contentType: application/json
+      kafka:
+        binder:
+          brokers: localhost:9092
