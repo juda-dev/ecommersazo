@@ -8,7 +8,7 @@ spring:
     password: products_pass
   jpa:
     hibernate:
-      dll-auto: update
+      ddl-auto: update
     open-in-view: false
   cloud:
     function:
