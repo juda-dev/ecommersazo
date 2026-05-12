@@ -1,3 +1,7 @@
 spring:
   application:
     name: msvc-products-api
+  config:
+    import: configserver:http://localhost:8888
+  profiles:
+    active: default

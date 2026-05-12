@@ -1,5 +1,6 @@
 package dev.juda.msvc_products_api.web.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.juda.libs_msvc_commons.domain.exception.BadRequestException;
 import dev.juda.libs_msvc_commons.domain.messaging.Reply;
 import dev.juda.msvc_products_api.domain.dto.request.CreateProductRequestDto;
@@ -35,7 +36,13 @@ public class ProductController {
         if (!"SUCCESS".equals(reply.status())) throw new BadRequestException(
             reply.message()
         );
-        return (ProductResponseDto) reply.body();
+
+        ObjectMapper mapper = new ObjectMapper();
+        ProductResponseDto res = mapper.convertValue(
+            reply.body(),
+            ProductResponseDto.class
+        );
+        return res;
     }
 
     @PutMapping("/{id}")
@@ -47,7 +54,12 @@ public class ProductController {
         if (!"SUCCESS".equals(reply.status())) throw new BadRequestException(
             reply.message()
         );
-        return (ProductResponseDto) reply.body();
+        ObjectMapper mapper = new ObjectMapper();
+        ProductResponseDto res = mapper.convertValue(
+            reply.body(),
+            ProductResponseDto.class
+        );
+        return res;
     }
 
     @DeleteMapping("/{id}")

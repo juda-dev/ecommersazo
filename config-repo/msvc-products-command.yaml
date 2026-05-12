@@ -21,7 +21,7 @@ spring:
           group: products-command
           consumer:
             startOffset: latest
-        handleCommand-out-0:
+        handleCommands-out-0:
           destination: products.replies
           contentType: application/json
       kafka:
