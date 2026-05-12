@@ -1,5 +1,7 @@
 package dev.juda.msvc_products_api.domain.service.impl;
 
+import dev.juda.libs_msvc_commons.domain.enums.CommandType;
+import dev.juda.libs_msvc_commons.domain.enums.ReplyStatus;
 import dev.juda.libs_msvc_commons.domain.exception.TimeoutException;
 import dev.juda.libs_msvc_commons.domain.messaging.Command;
 import dev.juda.libs_msvc_commons.domain.messaging.Reply;
@@ -40,12 +42,12 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         CreateProductRequestDto dto,
         Duration timeout
     ) {
-        return send(new Command<>("CREATE", null, dto), timeout);
+        return send(new Command<>(CommandType.CREATE, null, dto), timeout);
     }
 
     @Override
     public Reply<?> sendDeleteAndAwait(Long id, Duration timeout) {
-        return send(new Command<>("DELETE", id, null), timeout);
+        return send(new Command<>(CommandType.DELETE, id, null), timeout);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         UpdateProductRequestDto dto,
         Duration timeout
     ) {
-        return send(new Command<>("UPDATE", id, dto), timeout);
+        return send(new Command<>(CommandType.UPDATE, id, dto), timeout);
     }
 
     private Reply<?> send(Command<?> cmd, Duration timeout) {
@@ -73,7 +75,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         if (!bridge.send(OUT, msg)) {
             inbox.complete(
                 cid,
-                new Reply<>("ERROR", "Kafka not available", null)
+                new Reply<>(ReplyStatus.ERROR, "Kafka not available", null)
             );
             throw new IllegalStateException("Kafka could not be sent");
         }

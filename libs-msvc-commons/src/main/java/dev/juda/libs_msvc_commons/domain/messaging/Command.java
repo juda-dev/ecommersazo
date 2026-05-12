@@ -1,3 +1,5 @@
 package dev.juda.libs_msvc_commons.domain.messaging;
 
-public record Command<T>(String type, Long id, T body) {}
+import dev.juda.libs_msvc_commons.domain.enums.CommandType;
+
+public record Command<T>(CommandType type, Long id, T body) {}

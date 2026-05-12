@@ -1,3 +1,5 @@
 package dev.juda.libs_msvc_commons.domain.messaging;
 
-public record Reply<T>(String status, String message, T body) {}
+import dev.juda.libs_msvc_commons.domain.enums.ReplyStatus;
+
+public record Reply<T>(ReplyStatus status, String message, T body) {}
