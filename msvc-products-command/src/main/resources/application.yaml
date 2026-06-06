@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: msvc-products-command
-  config:
-    import: configserver:http://localhost:8888
-  profiles:
-    active: default
