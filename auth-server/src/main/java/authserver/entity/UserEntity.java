@@ -29,6 +29,9 @@ public class UserEntity {
     @Column(name = "last_name", length = 50)
     private String lastName;
 
+    @Column(nullable = false)
+    private boolean enabled = true;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -113,5 +116,13 @@ public class UserEntity {
 
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
