@@ -38,7 +38,19 @@ public class AuthorizationServerConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.oauth2AuthorizationServer(Customizer.withDefaults());
+        http
+                .securityMatchers(matchers -> matchers
+                        .requestMatchers(
+                                "/oauth2/**",
+                                "/.well-known/openid-configuration",
+                                "/.well-known/oauth-authorization-server",
+                                "/userinfo",
+                                "/connect/**",
+                                "/login",
+                                "/logout"
+                        )
+                )
+                .oauth2AuthorizationServer(Customizer.withDefaults());
         return http.build();
     }
 
