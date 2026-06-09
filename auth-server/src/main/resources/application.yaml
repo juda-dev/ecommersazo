@@ -1,3 +1,37 @@
+server:
+  port: 9000
+
 spring:
   application:
     name: auth-server
+  datasource:
+    url: jdbc:mysql://localhost:3314/db_auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: auth_user
+    password: auth_pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: false
+
+  sql:
+    init:
+      mode: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
