@@ -1,11 +1,8 @@
 package dev.juda.error;
 
-public abstract class DomainException extends RuntimeException{
+public sealed abstract class DomainException extends RuntimeException
+        permits BadRequestException, ConflictException, NotFoundException {
     protected DomainException(String message){
         super(message);
-    }
-
-    protected DomainException(String message, Throwable cause){
-        super(message, cause);
     }
 }

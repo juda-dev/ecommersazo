@@ -41,12 +41,6 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.CONFLICT, ex, request);
     }
 
-    @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUnauthorized(
-            UnauthorizedException ex, HttpServletRequest request) {
-        return buildResponse(HttpStatus.UNAUTHORIZED, ex, request);
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDTO> handleValidation(
             MethodArgumentNotValidException ex, HttpServletRequest request) {
