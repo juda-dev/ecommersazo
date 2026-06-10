@@ -13,7 +13,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-    private final static String[] PUBLIC_PATHS = {"/auth/**","/oauth2/**","/.well-known/**","/login","/api/users", "/actuator/health"};
+    private final static String[] PUBLIC_PATHS = {"/auth/**","/oauth2/**","/.well-known/**","/login","/api/users/**", "/actuator/health"};
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http){
@@ -23,18 +23,18 @@ public class SecurityConfig {
                         .pathMatchers(PUBLIC_PATHS).permitAll()
                         .anyExchange().authenticated()
                 )
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> {})
-                )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter())))
                 .build();
     }
 
     private ReactiveJwtAuthenticationConverterAdapter converter() {
         JwtGrantedAuthoritiesConverter g = new JwtGrantedAuthoritiesConverter();
-        g.setAuthorityPrefix("ROLE_"); g.setAuthoritiesClaimName("roles");
+        g.setAuthorityPrefix("ROLE_");
+        g.setAuthoritiesClaimName("roles");
+
         JwtAuthenticationConverter c = new JwtAuthenticationConverter();
         c.setJwtGrantedAuthoritiesConverter(g);
+
         return new ReactiveJwtAuthenticationConverterAdapter(c);
     }
 }
