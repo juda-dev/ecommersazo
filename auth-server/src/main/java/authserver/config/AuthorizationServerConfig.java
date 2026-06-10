@@ -39,7 +39,7 @@ import java.util.UUID;
 public class AuthorizationServerConfig {
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .oauth2AuthorizationServer(authorizationServer -> {
@@ -56,6 +56,13 @@ public class AuthorizationServerConfig {
                         )
                 );
 
+        return http.build();
+    }
+
+    @Bean @Order(2)
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(a -> a.requestMatchers("/actuator/**","/.well-known/**").permitAll()
+                .anyRequest().authenticated()).formLogin(Customizer.withDefaults());
         return http.build();
     }
 
