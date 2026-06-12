@@ -10,9 +10,9 @@ spring:
       enabled: true
 
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:mysql://localhost:3314/db_products?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: products_user
+    password: products_pass
     hikari:
       maximum-pool-size: 15
   jpa:
