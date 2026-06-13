@@ -1,4 +1,4 @@
-package authserver.entity;
+package authserver.domain.model;
 
 import jakarta.persistence.*;
 
