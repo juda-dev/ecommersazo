@@ -1,7 +1,7 @@
-package authserver.service;
+package authserver.domain.service;
 
-import authserver.entity.UserEntity;
-import authserver.repository.UserRepository;
+import authserver.domain.model.UserEntity;
+import authserver.domain.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
