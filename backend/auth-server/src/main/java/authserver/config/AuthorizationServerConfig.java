@@ -53,13 +53,8 @@ public class AuthorizationServerConfig {
                     authorizationServer.oidc(Customizer.withDefaults());
                 })
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/auth/login", "/auth/register").permitAll()
                         .anyRequest().authenticated()
-                )
-                .exceptionHandling(exceptions -> exceptions
-                        .defaultAuthenticationEntryPointFor(
-                                new LoginUrlAuthenticationEntryPoint("/login"),
-                                new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
-                        )
                 );
 
         return http.build();

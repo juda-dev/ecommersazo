@@ -13,7 +13,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-    private final static String[] PUBLIC_PATHS = {"/auth/**","/oauth2/**","/.well-known/**","/login","/api/users/**", "/actuator/health"};
+    private final static String[] PUBLIC_PATHS = {"/auth/**","/oauth2/**","/.well-known/**","/api/users/**", "/actuator/health"};
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http){
