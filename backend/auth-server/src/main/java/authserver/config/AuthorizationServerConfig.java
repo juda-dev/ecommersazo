@@ -65,13 +65,6 @@ public class AuthorizationServerConfig {
         return http.build();
     }
 
-    @Bean @Order(2)
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(a -> a.requestMatchers("/actuator/**","/.well-known/**").permitAll()
-                .anyRequest().authenticated()).formLogin(Customizer.withDefaults());
-        return http.build();
-    }
-
     @Bean
     public RegisteredClientRepository registeredClientRepository(PasswordEncoder passwordEncoder) {
         RegisteredClient gatewayClient = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -137,20 +130,7 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource){
         return new NimbusJwtEncoder(jwkSource);
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder);
-
-        return new ProviderManager(provider);
     }
 }
