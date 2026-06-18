@@ -1,0 +1,36 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: configurationservice
+
+  threads:
+    virtual:
+      enabled: true
+
+  mongodb:
+    uri: mongodb://localhost:27019/configdb
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/ecommerce
+          jwk-set-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.ecommerce.configurationservice: DEBUG
