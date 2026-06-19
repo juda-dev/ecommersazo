@@ -56,7 +56,7 @@ public sealed interface Result<T> permits Result.Success, Result.Error {
 
         @Override
         public Error<T> getError() {
-            return new Error<T>( "null", "null", List.of());
+            throw new IllegalStateException("Cannot get error from a Success result");
         }
     }
 

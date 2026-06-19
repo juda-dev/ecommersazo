@@ -18,17 +18,6 @@ import java.time.Duration;
 public class CacheConfig {
 
     @Bean
-    ObjectMapper redisObjectMapper() {
-
-        ObjectMapper mapper = JsonMapper.builder()
-                .addModule(new ParameterNamesModule())
-                .build();
-
-
-        return mapper;
-    }
-
-    @Bean
     public RedisCacheManager redisCacheManager(
             RedisConnectionFactory connectionFactory,
             ObjectMapper objectMapper) {
