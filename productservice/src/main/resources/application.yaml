@@ -1,0 +1,42 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: productservice
+  threads:
+    virtual:
+      enabled: true
+  mongodb:
+    uri: mongodb://localhost:27018/productdb
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 2000ms
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000
+      cache-null-values: false
+      key-prefix: "product::"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/ecommerce
+          jwk-set-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.ecommerce.productservice: DEBUG
