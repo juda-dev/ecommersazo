@@ -1,5 +1,6 @@
 package dev.juda.result;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -55,7 +56,7 @@ public sealed interface Result<T> permits Result.Success, Result.Error {
 
         @Override
         public Error<T> getError() {
-            throw new IllegalStateException("Cannot get error from a Success result");
+            return new Error<T>( "null", "null", List.of());
         }
     }
 
