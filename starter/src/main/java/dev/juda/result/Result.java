@@ -26,7 +26,7 @@ public sealed interface Result<T> permits Result.Success, Result.Error {
     boolean isSuccess();
     boolean isError();
     T getValue();
-    Error<T> getError();
+    @JsonIgnore Error<T> getError();
     @SuppressWarnings("unchecked")
     default <U> Result<U> map(Function<? super T, ? extends U> mapper) {
         if (this instanceof Success<T>(T value)) {
@@ -74,6 +74,7 @@ public sealed interface Result<T> permits Result.Success, Result.Error {
         public boolean isError() { return true; }
 
         @Override
+        @JsonIgnore
         public T getValue() {
             throw new IllegalStateException("Cannot get value from an Error result");
         }
