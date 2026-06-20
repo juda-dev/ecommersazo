@@ -33,4 +33,4 @@ springdoc:
 
 logging:
   level:
-    com.ecommerce.configurationservice: DEBUG
+    configurationservice: DEBUG

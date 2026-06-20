@@ -39,4 +39,4 @@ springdoc:
 
 logging:
   level:
-    com.ecommerce.productservice: DEBUG
+    productservice: DEBUG

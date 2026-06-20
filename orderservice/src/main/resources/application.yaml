@@ -76,4 +76,4 @@ springdoc:
 
 logging:
   level:
-    com.ecommerce.orderservice: DEBUG
+    orderservice: DEBUG
