@@ -1,0 +1,56 @@
+_format_version: "3.0"
+
+services:
+  - name: authservice
+    url: http://host.docker.internal:8081
+    routes:
+      - name: auth-route
+        paths:
+          - /api/auth
+          - /api/users
+        strip_path: false
+
+  - name: customerservice
+    url: http://host.docker.internal:8082
+    routes:
+      - name: customer-route
+        paths:
+          - /api/customers
+        strip_path: false
+
+  - name: productservice
+    url: http://host.docker.internal:8084
+    routes:
+      - name: product-route
+        paths:
+          - /api/products
+        strip_path: false
+
+  # - name: configurationservice
+  #   url: http://host.docker.internal:8083
+  #   routes:
+  #     - name: config-route
+  #       paths:
+  #         - /api/configurations
+  #       strip_path: false
+
+  - name: orderservice
+    url: http://host.docker.internal:8085
+    routes:
+      - name: order-route
+        paths:
+          - /api/orders
+        strip_path: false
+
+  - name: paymentservice
+    url: http://host.docker.internal:8086
+    routes:
+      - name: payment-route
+        paths:
+          - /api/payments
+        strip_path: false
+
+plugins:
+  - name: jwt
+    service: authservice
+    enabled: false

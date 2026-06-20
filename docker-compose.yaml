@@ -338,6 +338,8 @@ services:
   kong:
     image: kong:3.7
     container_name: kong
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
     environment:
       KONG_DATABASE: "off"
