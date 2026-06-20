@@ -1,79 +1,57 @@
 server:
-  port: 8085
-
+  port: 8086
 spring:
   application:
-    name: orderservice
+    name: paymentservice
   threads:
     virtual:
       enabled: true
-
   datasource:
-    url: jdbc:mysql://localhost:3307/ordersdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-    username: ${MYSQL_ORDERS_USER:ordersuser}
-    password: ${MYSQL_ORDERS_PASSWORD:orderspassword}
+    url: jdbc:mysql://localhost:3308/paymentsdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${MYSQL_PAYMENTS_USER:paymentsuser}
+    password: ${MYSQL_PAYMENTS_PASSWORD:paymentspassword}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
-
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-
   kafka:
     bootstrap-servers: localhost:29092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        spring.json.type.mapping: |
-          order:com.ecommerce.orderservice.order.application.OrderEvent
     consumer:
-      group-id: order-service-group
+      group-id: payment-service-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
-        spring.json.value.default.type: orderservice.order.application.PaymentEvent
+        spring.json.value.default.type: paymentservice.payment.application.OrderEvent
         spring.json.use.type.headers: false
-
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/ecommerce
           jwk-set-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
-
-resilience4j:
-  circuitbreaker:
-    instances:
-      paymentService:
-        sliding-window-size: 10
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 30s
-        permitted-number-of-calls-in-half-open-state: 3
-
 app:
   kafka:
     topics:
       order-events: order-events
       payment-events: payment-events
-
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,circuitbreakers
-
+        include: health,info,metrics
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-
 logging:
   level:
-    com.ecommerce.orderservice: DEBUG
+    com.ecommerce.paymentservice: DEBUG

@@ -64,6 +64,6 @@ springdoc:
 
 logging:
   level:
-    com.ecommerce.authservice: DEBUG
+    authservice: DEBUG
     org.springframework.security: INFO
     org.hibernate.SQL: WARN
